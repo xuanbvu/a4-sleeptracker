@@ -1,14 +1,14 @@
---Readme document for *author(s)*, *email(s)*, *UCI id(s)*--
+--Readme document for Xuan Vu, Jessie Yang, vux@uci.edu, jessiehy@uci.edu, 90043548, 90838170--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 
 */20
-- */2 The ability to log overnight sleep
-- */2 The ability to log sleepiness during the day
-- */2 The ability to view these two categories of logged data
+- 2/2 The ability to log overnight sleep
+- 2/2 The ability to log sleepiness during the day
+- 2/2 The ability to view these two categories of logged data
 - */4 Either using a native device resource or backing up logged data
-- */4 Following good principles of mobile design
-- */4 Creating a compelling app
+- 4/4 Following good principles of mobile design
+- 4/4 Creating a compelling app
 - */2 A readme and demo video which explains how these features were implemented and their design rationale
 
 2. How long, in hours, did it take you to complete this assignment?
