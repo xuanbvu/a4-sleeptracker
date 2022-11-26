@@ -104,3 +104,4 @@ dist
 .tern-port
 
 sleeptracker/.angular/cache
+.DS_Store

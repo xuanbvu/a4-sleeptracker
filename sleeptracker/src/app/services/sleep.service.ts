@@ -19,6 +19,7 @@ export class SleepService {
 		if(SleepService.LoadDefaultData) {
 			this.addDefaultData();
 		SleepService.LoadDefaultData = false;
+		
 	}
 	}
 
