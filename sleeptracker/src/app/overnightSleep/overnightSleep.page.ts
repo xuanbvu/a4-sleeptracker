@@ -25,11 +25,16 @@ export class OvernightSleepPage {
 	endDateChanged(value) { this.formattedEndDate = format(new Date(parseISO(value)), "hh:mm a, MMM d") }
 
 	overnightSleepSubmit() {
-		this.overnightSleepData = new OvernightSleepData(new Date(parseISO(this.startDate)), new Date(parseISO(this.endDate)));
-		this.overnightSleepSummary = this.overnightSleepData.summaryString();
+		if (this.startDate < this.endDate) {
+			this.overnightSleepData = new OvernightSleepData(new Date(parseISO(this.startDate)), new Date(parseISO(this.endDate)));
+			this.overnightSleepSummary = "Your overnight sleep lasted " + this.overnightSleepData.summaryString();
+			this.overnightSleepData.date = this.overnightSleepData.dateString();
+			this.overnightSleepData.summary = this.overnightSleepData.summaryString();
+			this.sleepService.logOvernightData(this.overnightSleepData);
+		}
+		else {
+			this.overnightSleepSummary = "Start Sleep Time cannot be after or the same as Sleep End Time";
+		}
 		
-		this.overnightSleepData.date = this.overnightSleepData.dateString();
-		this.overnightSleepData.summary = this.overnightSleepData.summaryString();
-		this.sleepService.logOvernightData(this.overnightSleepData);
 	}
 }
