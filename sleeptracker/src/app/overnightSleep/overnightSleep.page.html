@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Overnight Sleep
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Overnight Sleep</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <p>Log the start and end time of your overnight sleep:</p>
+    <ion-input 
+      value="{{ formattedStartDate }}"
+      id="startDate"
+      class="ion-text-end"
+    >Start</ion-input>
+    <ion-popover trigger="startDate">
+      <ng-template>
+        <ion-datetime
+          #startTime
+          presentation="time-date"
+          [(ngModel)]="startDate"
+          (ionChange)="startDateChanged(startTime.value)"
+          showDefaultButtons="true"
+        ></ion-datetime>
+      </ng-template>
+    </ion-popover>
+
+    <ion-input 
+      value="{{ formattedEndDate }}"
+      id="endDate"
+      class="ion-text-end"
+    >End</ion-input>
+    <ion-popover trigger="endDate" size="cover">
+      <ng-template>
+        <ion-datetime
+        #endTime
+        presentation="time-date"
+        [(ngModel)]="endDate"
+        (ionChange)="endDateChanged(endTime.value)"
+    
+      ></ion-datetime>
+      </ng-template>
+    </ion-popover>
+    <ion-button (click)="overnightSleepSubmit()">Submit</ion-button>
+    <p *ngIf="overnightSleepSummary">Your overnight sleep lasted <strong>{{ overnightSleepSummary }}</strong></p>
+  </div>
+</ion-content>
