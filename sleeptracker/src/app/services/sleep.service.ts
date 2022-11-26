@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,18 @@ export class SleepService {
 	public static AllOvernightData:OvernightSleepData[] = [];
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
-	constructor(private AllSleepDataStorage: Storage,
-		private AllOvernightDataStorage: Storage,
-		private AllSleepinessDataStorage: Storage) {
+	constructor(private storage: Storage) {
 		if(SleepService.LoadDefaultData) {
 			this.addDefaultData();
-		SleepService.LoadDefaultData = false;
-		
+			SleepService.LoadDefaultData = false;
+		}
+		this.init();
+		this.getOvernightDatafromStorage();
+		this.getSleepinessDatafromStorage();
 	}
+
+	async init() {
+		await this.storage.create();
 	}
 
 	private addDefaultData() {
@@ -29,33 +33,39 @@ export class SleepService {
 		this.logOvernightData(new OvernightSleepData(new Date('February 20, 2021 23:11:00'), new Date('February 21, 2021 08:03:00')));
 	}
 
+	async addData(storageKey, item) {
+		const storedData = await this.storage.get(storageKey) || [];
+		storedData.push(item);
+		return this.storage.set(storageKey, storedData);
+	}
+
 	public logOvernightData(sleepData:OvernightSleepData) {
 		SleepService.AllSleepData.push(sleepData);
 		SleepService.AllOvernightData.push(sleepData);
 		// push to local storage overnight
-		this.AllOvernightDataStorage.set(sleepData.id, sleepData);
+		this.addData("AllOvernightData", sleepData);
+		this.getOvernightDatafromStorage();
 	}
 
 	public logSleepinessData(sleepData:StanfordSleepinessData) {
 		SleepService.AllSleepData.push(sleepData);
 		SleepService.AllSleepinessData.push(sleepData);
 		// push to local storage sleepiness
-		this.AllSleepinessDataStorage.set(sleepData.id, sleepData);
+		this.addData("AllSleepinessData", sleepData);
+		this.getSleepinessDatafromStorage();
 	}
 
-	public getOvernightDatafromStorage() {
-		SleepService.AllOvernightData.forEach( (element) => {
-			this.AllSleepinessDataStorage.get(element.id).then ( (val) => {
-				console.log(val);
-			});
-		});
+	public async getOvernightDatafromStorage() {
+		await this.storage.get("AllOvernightData").then(res => {
+			const data = res || [];
+			SleepService.AllOvernightData = data;
+		})
 	}
 
-	public getSleepinessDatafromStorage() {
-		SleepService.AllSleepinessData.forEach( (element) => {
-			this.AllOvernightDataStorage.get(element.id).then((val) => {
-				console.log(val);
-			});
-		});
+	public async getSleepinessDatafromStorage() {
+		await this.storage.get("AllSleepinessData").then(res => {
+			const data = res || [];
+			SleepService.AllSleepinessData = data;
+		})
 	}
 }

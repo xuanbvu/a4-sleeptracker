@@ -32,10 +32,10 @@
       </ion-row>
       <ion-row style="border-bottom: groove;" *ngFor="let data of allOvernightData">
         <ion-col col-4>
-          <ion-label>{{ data.dateString() }}</ion-label>
+          <ion-label>{{ data.date }}</ion-label>
         </ion-col>
         <ion-col col-4>
-          <ion-label>{{ data.summaryString() }}</ion-label>
+          <ion-label>{{ data.summary }}</ion-label>
         </ion-col>
       </ion-row>
     </div>
@@ -58,7 +58,7 @@
       </ion-row>
       <ion-row style="border-bottom: groove;" *ngFor="let data of allSleepinessData">
         <ion-col col-4>
-          <ion-label>{{ data.dateString() }}</ion-label>
+          <ion-label>{{ data.date }}</ion-label>
         </ion-col>
         <ion-col col-4>
           <ion-label>{{ data.loggedValue }}</ion-label>

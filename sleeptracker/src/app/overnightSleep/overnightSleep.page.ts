@@ -27,7 +27,9 @@ export class OvernightSleepPage {
 	overnightSleepSubmit() {
 		this.overnightSleepData = new OvernightSleepData(new Date(parseISO(this.startDate)), new Date(parseISO(this.endDate)));
 		this.overnightSleepSummary = this.overnightSleepData.summaryString();
-		console.log(this.overnightSleepSummary)
+		
+		this.overnightSleepData.date = this.overnightSleepData.dateString();
+		this.overnightSleepData.summary = this.overnightSleepData.summaryString();
 		this.sleepService.logOvernightData(this.overnightSleepData);
 	}
 }

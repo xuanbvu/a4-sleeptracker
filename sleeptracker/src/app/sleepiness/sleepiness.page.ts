@@ -22,6 +22,8 @@ export class SleepinessPage {
 	sleepinessSubmit() {
 		this.stanfordSleepinessData = new StanfordSleepinessData(this.sleepiness);
 		this.sleepinessSummary = this.stanfordSleepinessData.summaryString();
+		
+		this.stanfordSleepinessData.date = this.stanfordSleepinessData.dateString();
 		this.sleepService.logSleepinessData(this.stanfordSleepinessData);
 	}
 }

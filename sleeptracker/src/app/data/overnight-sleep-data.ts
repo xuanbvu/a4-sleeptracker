@@ -4,6 +4,8 @@ import { format } from 'date-fns';
 export class OvernightSleepData extends SleepData {
 	private sleepStart:Date;
 	private sleepEnd:Date;
+	date:string;
+	summary:string;
 
 	constructor(sleepStart:Date, sleepEnd:Date) {
 		super();
