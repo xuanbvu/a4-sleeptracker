@@ -16,6 +16,8 @@ export class SleepService {
 		if(SleepService.LoadDefaultData) {
 			this.addDefaultData();
 		SleepService.LoadDefaultData = false;
+		
+		this.addLocalStorageData();
 	}
 	}
 
@@ -25,13 +27,20 @@ export class SleepService {
 		this.logOvernightData(new OvernightSleepData(new Date('February 20, 2021 23:11:00'), new Date('February 21, 2021 08:03:00')));
 	}
 
+	private addLocalStorageData() {
+		// add localstorage data to AllSleepData, AllOvernightData, and AllSleepinessData
+		return;
+	}
+
 	public logOvernightData(sleepData:OvernightSleepData) {
 		SleepService.AllSleepData.push(sleepData);
 		SleepService.AllOvernightData.push(sleepData);
+		// add sleepData to localstorage
 	}
 
 	public logSleepinessData(sleepData:StanfordSleepinessData) {
 		SleepService.AllSleepData.push(sleepData);
 		SleepService.AllSleepinessData.push(sleepData);
+		// add sleepData to localstorage
 	}
 }
