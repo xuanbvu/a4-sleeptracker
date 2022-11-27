@@ -12,14 +12,23 @@ export class HomePage {
 	showSleepinessData:boolean = true;
 
 	constructor(public sleepService:SleepService) {
+		
+	}
+
+	ngOnInit() {
+		this.sleepService.getSleepDatafromStorage();
 		this.sleepService.getOvernightDatafromStorage();
 		this.sleepService.getSleepinessDatafromStorage();
 	}
 
-	ngOnInit() {
-		console.log(this.allOvernightData);
-		console.log(this.allSleepinessData);
-	}
+	handleRefresh(event) {
+    setTimeout(() => {
+			this.sleepService.getSleepDatafromStorage();
+			this.sleepService.getOvernightDatafromStorage();
+			this.sleepService.getSleepinessDatafromStorage();
+			event.target.complete();
+    }, 2000);
+  };
 
 	/* Ionic doesn't allow bindings to static variables, so this getter can be used instead. */
 	get allSleepData() {
