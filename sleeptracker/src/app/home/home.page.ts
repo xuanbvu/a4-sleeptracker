@@ -16,12 +16,14 @@ export class HomePage {
 	}
 
 	ngOnInit() {
+		this.sleepService.getSleepDatafromStorage();
 		this.sleepService.getOvernightDatafromStorage();
 		this.sleepService.getSleepinessDatafromStorage();
 	}
 
 	handleRefresh(event) {
     setTimeout(() => {
+			this.sleepService.getSleepDatafromStorage();
 			this.sleepService.getOvernightDatafromStorage();
 			this.sleepService.getSleepinessDatafromStorage();
 			event.target.complete();
